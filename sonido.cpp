@@ -1,11 +1,14 @@
+﻿// sonido.cpp
 #include "sonido.h"
 #include <iostream>
-#include <Windows.h>
+#include <Windows.h> // Se mantiene para PlaySound y MultiByteToWideChar
 #include <string>
+#include <chrono> // ¡Nuevo! Para std::chrono
+#include <thread> // ¡Nuevo! Para std::this_thread::sleep_for
 
 using namespace std;
 
-void musica(int orden)    {
+void musica(int orden) {
     const char* archivoSonidoANSI;
     archivoSonidoANSI = " ";
 
@@ -43,12 +46,12 @@ void musica(int orden)    {
     default:
         break;
     }
-        // Convertir la cadena ANSI a Unicode
-        wstring archivoSonidoUNICODE; // Variable para la ruta Unicode
-        int tamano = MultiByteToWideChar(CP_ACP, 0, archivoSonidoANSI, -1, nullptr, 0);
-        archivoSonidoUNICODE.resize(tamano);
-        int resulta = MultiByteToWideChar(CP_ACP, 0, archivoSonidoANSI, -1, &archivoSonidoUNICODE[0], tamano);
+    // Convertir la cadena ANSI a Unicode
+    wstring archivoSonidoUNICODE; // Variable para la ruta Unicode
+    int tamano = MultiByteToWideChar(CP_ACP, 0, archivoSonidoANSI, -1, nullptr, 0);
+    archivoSonidoUNICODE.resize(tamano);
+    int resulta = MultiByteToWideChar(CP_ACP, 0, archivoSonidoANSI, -1, &archivoSonidoUNICODE[0], tamano);
 
-        // Reproduce el archivo de sonido usando la ruta Unicode
-        PlaySound(archivoSonidoUNICODE.c_str(), NULL, SND_FILENAME | SND_ASYNC);
+    // Reproduce el archivo de sonido usando la ruta Unicode
+    PlaySound(archivoSonidoUNICODE.c_str(), NULL, SND_FILENAME | SND_ASYNC);
 }

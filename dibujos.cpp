@@ -1,8 +1,10 @@
-#include "dibujos.h"
+﻿#include "dibujos.h"
 #include "sonido.h"
 #include <iostream>
-#include <Windows.h>
+#include <Windows.h> // Se mantiene para SetConsoleCursorPosition, GetStdHandle, SetConsoleCursorPosition
 #include <string>
+#include <chrono> // ¡Nuevo! Para std::chrono
+#include <thread> // ¡Nuevo! Para std::this_thread::sleep_for
 
 
 using namespace std;
@@ -45,9 +47,8 @@ void placaIntro() {
 | |   |_____|    | || |    |_____|   | || |  `.___.'     | || | |_________|  | || | |____| |___| | || ||____|  |____|| |
 | |              | || |              | || |              | || |              | || |              | || |              | |
 ' '--------------' || '--------------' || '--------------' || '--------------' || '--------------' || '--------------' '                                            
-                   (2025) JAVIER CABRERA CON MUSICA DE "TRUCO" (1982-86) DE ARIEL Y ENRIQUE ARBISER
 )";
-    Sleep(4500);
+    //this_thread::sleep_for(chrono::milliseconds(4500));
 }
 
 void dibujarPiedra(const char* colores) {
@@ -106,16 +107,16 @@ void dibujarTijera(const char* colores) {
 
 
 
+
+
+
+
+
+
+
+
+
  
-
-
-
-
-
-
-         
-
-          
                     _______                _______ _____     _ ______ _____            
                 ---'   ____)____          |__   __|_   _|   | |  ____|  __ \     /\    
                           ______)            | |    | |     | | |__  | |__) |   /  \   
@@ -129,17 +130,17 @@ void dibujarTijera(const char* colores) {
 void dibujarIntro() {
     dibujarPiedra("color 4F");
     musica(3);
-    Sleep(500);
+    this_thread::sleep_for(chrono::milliseconds(400));
     dibujarPapel("color 1F");
-    Sleep(500);
+    this_thread::sleep_for(chrono::milliseconds(400));
     dibujarTijera("color 2F");
-    Sleep(600);
+    this_thread::sleep_for(chrono::milliseconds(600));
     dibujarPiedra("color 30");
-    Sleep(500);
+    this_thread::sleep_for(chrono::milliseconds(400));
     dibujarPapel("color 50");
-    Sleep(500);
+    this_thread::sleep_for(chrono::milliseconds(400));
     dibujarTijera("color 60");
-    Sleep(800);
+    this_thread::sleep_for(chrono::milliseconds(800));
 }
 
 void dibujarMenu() {
@@ -204,9 +205,11 @@ void dibujarSalida() {
 
 
 
+
+
     )";
     musica(0);
-    Sleep(3200);
+    this_thread::sleep_for(chrono::milliseconds(3300));
 }
 
 void dibujarEmpatePiedra() {
@@ -385,7 +388,6 @@ void dibujarDerrotaPapel() {
 
 
 
-
                 _______                                                                         _______ 
             ---'   ____)____                                                               ____(____   '---
                        ______)                                                            (_______
@@ -500,7 +502,7 @@ void escribirPiedra() {
 }
 
 void escribirPapel() {
-   
+
 }
 
 void escribirTijera() {
@@ -508,7 +510,7 @@ void escribirTijera() {
 }
 
 void dibujarNumero(int numero) {
-    switch (numero){
+    switch (numero) {
     case 0:
         cout << R"(                                                   ___  
                                                   / _ \ 
@@ -623,8 +625,8 @@ void dibujarPuntajeUsuario() {
                                              \/   \____/|_____/  (_)                                           
  )" << endl;
 }
-    
- void dibujarPuntajeAzar(){
+
+void dibujarPuntajeAzar() {
     cout << R"(                       
                                            _____ _____  _    _     
                                           / ____|  __ \| |  | |  _ 
@@ -635,12 +637,11 @@ void dibujarPuntajeUsuario() {
  )" << endl;
 }
 
- void dibujarGanaste(){
-     system("cls");
-     system("color 2F");
-     musica(8);
-     cout << R"(                       
-
+void dibujarGanaste() {
+    system("cls");
+    system("color 2F");
+    musica(8);
+    cout << R"(                       
 
 
 
@@ -656,19 +657,22 @@ void dibujarPuntajeUsuario() {
                  | | | | | | | |__| |/ ____ \| |\  |/ ____ \ ____) |  | |  | |____  |_| |_| |_|
                  |_| |_| |_|  \_____/_/    \_\_| \_/_/    \_\_____/   |_|  |______| (_) (_) (_)
                                                                                
-                                                                               
+ 
+
+
+
+                                                                              
                                                  
  )" << endl;
-     Sleep(3000);
-     system("pause");
- }
+    this_thread::sleep_for(chrono::milliseconds(3500));
+    system("pause");
+}
 
- void dibujarPerdiste() {
-     system("cls");
-     system("color 4F");
-     musica(9);
-     cout << R"(                       
-
+void dibujarPerdiste() {
+    system("cls");
+    system("color 4F");
+    musica(9);
+    cout << R"(                       
 
 
 
@@ -685,9 +689,13 @@ void dibujarPuntajeUsuario() {
                              |_|    |______|_|  \_\_____/_____|_____/   |_|  |______|
                                                          
                                                                                                                                       
-                                                                               
+ 
+
+
+
+                                                                              
                                                  
  )" << endl;
-     Sleep(3000);
-     system("pause");
- }
+    this_thread::sleep_for(chrono::milliseconds(3500));
+    system("pause");
+}

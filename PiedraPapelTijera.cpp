@@ -3,8 +3,10 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
-#include <Windows.h>
+#include <Windows.h> // Se mantiene para _kbhit, _getch, y ahora para SetConsoleOutputCP/SetConsoleCP
 #include <string>
+#include <chrono> 
+#include <thread> 
 #include "dibujos.h"
 #include "sonido.h"
 
@@ -12,6 +14,10 @@ using namespace std;
 
 int main()
 {
+    //Configuración para mostrar tildes y caracteres especiales
+    SetConsoleOutputCP(CP_UTF8); // Establece la codificación de salida de la consola a UTF-8
+    SetConsoleCP(CP_UTF8);       // Establece la codificación de entrada de la consola a UTF-8
+
     char Elige;
     char Salida;
     int Azar;
@@ -24,46 +30,38 @@ int main()
     Puntaje_Usuario = 0;
     Puntaje_Azar = 0;
     Elecciones = "";
-    
+
     srand(time(0));
-    
+
     placaIntro();
+    cout << "                  (2025) DE JAVIER CABRERA CON MÚSICA DE 'TRUCO' (1982-86) DE ARIEL Y ENRIQUE ARBISER" << endl;
+    this_thread::sleep_for(chrono::milliseconds(4500));
+   
     dibujarMenu();
     while (Salida != 'X') {
-        
 
         if (_kbhit()) {
             Elige = _getch(); // Lee una tecla sin esperar Enter
 
-            //El usuario elige una opción elige Piedra, Papel, Tijera o Salir del juego
-            //while (Elige != '1' && Elige != '2' && Elige != '3' && Elige != 'x' && Elige != 'X') {
-              //  cin >> Elige;
             if (Elige == 'X' || Elige == 'x') {
                 Salida = 'X';
                 dibujarSalida();
                 break;
             }
-            // }
 
-        //Dibuja la intro antes de jugar salvo que se haya elegido la X para Salir del juego
             if (Elige == '1' || Elige == '2' || Elige == '3') {
                 musica(2);
-                Sleep(250);
+                this_thread::sleep_for(chrono::milliseconds(250));
                 dibujarIntro();
 
-                //Número al azar entre 1 y 3
                 Azar = rand() % 3 + 1;
 
-                //Conversión de int a char
                 char Azar_char = Azar + '0';
 
-                //Suma de dos char en un string
                 Elecciones = Elecciones + Elige + Azar_char;
 
-                //Conversión del string en int (para luego utilizar switch)
                 int EleccionesInt = atoi(Elecciones.c_str());
 
-                //Switch para dibujar las elecciones del jugador y de la máquina (azar)    
                 switch (EleccionesInt) {
                 case 11:
                     dibujarEmpatePiedra();
@@ -109,9 +107,8 @@ int main()
                     break;
                 }
                 EleccionesInt = 0;
-                Sleep(2000);
+                this_thread::sleep_for(chrono::milliseconds(2000));
 
-                //Muestra el puntaje parcial entre el jugador y la máquina (azar) salvo que se haya Salir
                 system("cls");
                 system("color 80");
                 musica(7);
@@ -119,17 +116,20 @@ int main()
                 dibujarNumero(Puntaje_Usuario);
                 dibujarPuntajeAzar();
                 dibujarNumero(Puntaje_Azar);
-                Sleep(3200);
+                this_thread::sleep_for(chrono::milliseconds(3300));
 
-                //Cuando alguien llegue a sumar 10 puntos, terminará el juego en dos opciones
                 if (Puntaje_Usuario == 2 || Puntaje_Azar == 2) {
                     if (Puntaje_Usuario == 2) {
                         dibujarGanaste();
-                        placaIntro();            
+                        placaIntro();
+                        cout << "                  (2025) DE JAVIER CABRERA CON MÚSICA DE 'TRUCO' (1982-86) DE ARIEL Y ENRIQUE ARBISER" << endl;
+                        this_thread::sleep_for(chrono::milliseconds(4500));
                     }
                     else {
                         dibujarPerdiste();
-                        placaIntro();                      
+                        placaIntro();
+                        cout << "                  (2025) DE JAVIER CABRERA CON MÚSICA DE 'TRUCO' (1982-86) DE ARIEL Y ENRIQUE ARBISER" << endl;
+                        this_thread::sleep_for(chrono::milliseconds(4500));
                     }
                     Puntaje_Usuario = 0;
                     Puntaje_Azar = 0;
@@ -140,4 +140,5 @@ int main()
             }
         }
     }
+    return 0;
 }
